@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>learntocode - Log in</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Outfit:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="icons/icon.svg" alt="Icon" class="logo-icon">
+            <span class="logo-text">learntocode</span>
+        </div>
+    </header>
+
+    <main class="hero">
+        <div class="auth-container">
+            <nav class="auth-nav">
+                <a href="login.html" class="auth-nav-link active">Log in</a>
+                <span class="separator">/</span>
+                <a href="signup.html" class="auth-nav-link">Create an account</a>
+            </nav>
+
+            <div class="auth-box">
+                <form class="auth-form" onsubmit="event.preventDefault(); window.location.href='courses.html';">
+
+                    <input type="text" class="auth-input" placeholder="email, username" autocomplete="username"
+                        required>
+
+                    <input type="password" class="auth-input" placeholder="password" autocomplete="current-password"
+                        required>
+
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="auth-button">Log in</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

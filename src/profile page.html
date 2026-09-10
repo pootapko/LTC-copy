@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>learntocode - Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="icons/icon.svg" alt="Icon" class="logo-icon">
+            <span class="logo-text">learntocode</span>
+        </div>
+        <button class="btn-dashboard" onclick="window.location.href='courses.html'">
+            Dashboard
+        </button>
+    </header>
+
+    <main class="profile-container">
+
+        <section class="profile-card user-card">
+
+            <div class="profile-main-info">
+
+                <img src="icons/profile picture.svg" alt="Avatar" class="avatar-img">
+
+                <div class="profile-text-content">
+                    <div class="profile-header-top">
+                        <div class="profile-titles">
+                            <h2 class="profile-name">Sofiia P.</h2>
+                            <span class="profile-level">Level 17</span>
+                        </div>
+                        <button class="btn-outline">Edit profile</button>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="detail-item">
+                            <img src="img/letter.svg" alt="Mail"> usernameeee@gmail.com
+                        </div>
+                        <div class="detail-item">
+                            <img src="img/calendar.svg" alt="Calendar"> Joined January 2026
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="profile-bio">Passionate about learning to code and building amazing things!</p>
+        </section>
+
+        <section class="profile-card">
+            <div class="card-header-flex">
+                <h3 class="security-title">
+                    <img src="img/lock green.svg" alt="Lock"> Security
+                </h3>
+                <button class="btn-outline">Change password</button>
+            </div>
+
+            <div class="password-box">
+                <div class="pass-left">
+                    <img src="img/lock white.svg" alt="Lock"> Password
+                </div>
+                <img src="img/eye white.svg" alt="Show" class="eye-icon">
+            </div>
+
+            <p class="security-hint">Last changed: Never • Keep your account secure by using a strong password</p>
+        </section>
+
+        <section class="profile-card">
+            <h3 class="journey-title">Learning journey</h3>
+
+            <div class="progress-block">
+                <div class="progress-labels">
+                    <span>Overall progress</span>
+                    <span class="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div class="progress-block">
+                <div class="progress-labels">
+                    <span>Level progress</span>
+                    <span class="progress-percent">0/100 XP</span>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-fill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-label">Enrolled courses</span>
+                    <span class="stat-value">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Next level</span>
+                    <span class="stat-value">100 XP</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+
+</html>

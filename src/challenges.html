@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>learntocode - Challenges</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Outfit:wght@700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="icons/icon.svg" alt="Icon" class="logo-icon">
+            <span class="logo-text">learntocode</span>
+        </div>
+
+        <div class="user-profile" onclick="window.location.href='profile page.html'">
+            <div class="user-info">
+                <span class="user-name">Username</span>
+                <span class="user-rank">Level 1 - 0/500 XP</span>
+            </div>
+            <div class="user-avatar">
+                <img src="icons/profile icon.svg" alt="Avatar">
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+
+        <section class="courses-content">
+            <nav class="content-tabs">
+                <button class="tab-btn" onclick="window.location.href='courses.html'">Courses</button>
+                <button class="tab-btn active">Challenges</button>
+            </nav>
+
+            <header class="content-header">
+                <h2 class="main-title challenge-title">Learning Path</h2>
+                <p class="main-subtitle">Complete challenges to earn XP and unlock new content</p>
+            </header>
+
+            <div class="challenges-grid">
+
+                <article class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon-wrapper">
+                            <img src="img/locked.png" alt="Locked" class="icon-locked">
+                            <img src="img/unlocked.png" alt="Hello World" class="icon-unlocked">
+                        </div>
+                        <div class="challenge-title-group">
+                            <h3>Hello World!</h3>
+                            <span class="difficulty beginner">Beginner</span>
+                        </div>
+                    </div>
+                    <p class="challenge-desc">
+                        <span class="desc-label">How to pass:</span> Successfully finish all lessons and the final
+                        assignment of
+                        any course.
+                    </p>
+                    <div class="challenge-reward">
+                        <span class="reward-label">Reward:</span> 250 XP + "First Steps" Badge.
+                    </div>
+                </article>
+
+                <article class="challenge-card locked">
+                    <div class="challenge-header">
+                        <div class="challenge-icon-wrapper">
+                            <img src="img/locked.png" alt="Locked" class="icon-locked">
+                            <img src="img/unlocked.png" alt="The Perfectionist" class="icon-unlocked">
+                        </div>
+                        <div class="challenge-title-group">
+                            <h3>The Perfectionist</h3>
+                            <span class="difficulty beginner">Beginner</span>
+                        </div>
+                    </div>
+                    <p class="challenge-desc">
+                        <span class="desc-label">How to pass:</span> Answer every question correctly in a quiz or final
+                        module
+                        test without using any hints.
+                    </p>
+                    <div class="challenge-reward">
+                        <span class="reward-label">Reward:</span> 100 XP + 1 Star.
+                    </div>
+                </article>
+
+                <article class="challenge-card locked">
+                    <div class="challenge-header">
+                        <div class="challenge-icon-wrapper">
+                            <img src="img/locked.png" alt="Locked" class="icon-locked">
+                            <img src="img/unlocked.png" alt="Double Scholar" class="icon-unlocked">
+                        </div>
+                        <div class="challenge-title-group">
+                            <h3>Double Scholar</h3>
+                            <span class="difficulty advanced">Advanced</span>
+                        </div>
+                    </div>
+                    <p class="challenge-desc">
+                        <span class="desc-label">How to pass:</span> Complete 100% of the curriculum for any two
+                        different
+                        courses in the "Available Courses" section.
+                    </p>
+                    <div class="challenge-reward">
+                        <span class="reward-label">Reward:</span> 500 XP + Achievement.
+                    </div>
+                </article>
+
+                <article class="challenge-card locked">
+                    <div class="challenge-header">
+                        <div class="challenge-icon-wrapper">
+                            <img src="img/locked.png" alt="Locked" class="icon-locked">
+                            <img src="img/unlocked.png" alt="Streak Survivor" class="icon-unlocked">
+                        </div>
+                        <div class="challenge-title-group">
+                            <h3>Streak Survivor</h3>
+                            <span class="difficulty intermediate">Intermediate</span>
+                        </div>
+                    </div>
+                    <p class="challenge-desc">
+                        <span class="desc-label">How to pass:</span> Maintain a 14-day learning streak. Log in and
+                        complete at
+                        least one lesson or challenge for 14 consecutive days.
+                    </p>
+                    <div class="challenge-reward">
+                        <span class="reward-label">Reward:</span> 200 XP + Streak multiplier.
+                    </div>
+                </article>
+
+                <article class="challenge-card locked">
+                    <div class="challenge-header">
+                        <div class="challenge-icon-wrapper">
+                            <img src="img/locked.png" alt="Locked" class="icon-locked">
+                            <img src="img/unlocked.png" alt="C++ Architect" class="icon-unlocked">
+                        </div>
+                        <div class="challenge-title-group">
+                            <h3>C++ Architect</h3>
+                            <span class="difficulty beginner">Beginner</span>
+                        </div>
+                    </div>
+                    <p class="challenge-desc">
+                        <span class="desc-label">How to pass:</span> Solve a practical task in the C++ Course that
+                        requires
+                        building a system with multiple classes and operator overloading.
+                    </p>
+                    <div class="challenge-reward">
+                        <span class="reward-label">Reward:</span> 400 XP + "Code Architect" Badge.
+                    </div>
+                </article>
+
+                <article class="challenge-card locked">
+                    <div class="challenge-header">
+                        <div class="challenge-icon-wrapper">
+                            <img src="img/locked.png" alt="Locked" class="icon-locked">
+                            <img src="img/unlocked.png" alt="Cyber Guardian" class="icon-unlocked">
+                        </div>
+                        <div class="challenge-title-group">
+                            <h3>Cyber Guardian</h3>
+                            <span class="difficulty beginner">Beginner</span>
+                        </div>
+                    </div>
+                    <p class="challenge-desc">
+                        <span class="desc-label">How to pass:</span> Complete a "Bug Hunt" challenge by finding security
+                        flaws
+                        like SQL injection or weak encryption.
+                    </p>
+                    <div class="challenge-reward">
+                        <span class="reward-label">Reward:</span> 450 XP + "Security Specialist".
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <aside class="dashboard-sidebar">
+
+            <section class="sidebar-box dragon-card">
+                <h3 class="sidebar-title">Your Dragon</h3>
+
+                <div class="dragon-container">
+                    <img src="img/egg.png" alt="Dragon Stage" class="dragon-main-img" id="dragon-img">
+                </div>
+
+                <div class="dragon-info">
+                    <div class="growth-row">
+                        <span>Growth</span>
+                        <span class="growth-val" id="growth-val">0%</span>
+                    </div>
+                    <div class="growth-track">
+                        <div class="growth-fill" id="growth-fill" style="width: 0%"></div>
+                    </div>
+
+                    <div class="stage-badge">
+                        Stage: <span class="stage-type" id="stage-name">egg</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sidebar-box stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon-wrap">
+                        <img src="img/strike.png" alt="Streak" class="stat-icon-img">
+                    </div>
+                    <div class="stat-details">
+                        <span class="stat-label">Streak</span>
+                        <span class="stat-value">1 days</span>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon-wrap">
+                        <img src="img/progress.png" alt="Progress" class="stat-icon-img">
+                    </div>
+                    <div class="stat-details">
+                        <span class="stat-label">Progress</span>
+                        <span class="stat-value">1/12</span>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon-wrap">
+                        <img src="img/achievements.png" alt="Achievements" class="stat-icon-img">
+                    </div>
+                    <div class="stat-details">
+                        <span class="stat-label">Achievements</span>
+                        <span class="stat-value">1</span>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon-wrap">
+                        <img src="img/star.png" alt="Stars" class="stat-icon-img">
+                    </div>
+                    <div class="stat-details">
+                        <span class="stat-label">Stars</span>
+                        <span class="stat-value">1</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sidebar-box leaderboard-card">
+                <div class="leaderboard-header">
+                    <img src="img/leaderboard.png" alt="Leaderboard" class="title-icon">
+                    <h3 class="sidebar-title">Leaderboard</h3>
+                    <span class="see-all-link">SEE ALL</span>
+                </div>
+
+                <div class="leaderboard-list">
+                    <div class="leaderboard-row">
+                        <div class="icon-container"><img src="img/gold medal.png" alt="Gold" class="medal-icon"></div>
+                        <div class="user-meta">
+                            <span class="user-name">pepe67</span>
+                            <span class="user-level">Level 17</span>
+                        </div>
+                        <span class="xp-value">2450 XP</span>
+                    </div>
+
+                    <div class="leaderboard-row">
+                        <div class="icon-container"><img src="img/silver medal.png" alt="Silver" class="medal-icon">
+                        </div>
+                        <div class="user-meta">
+                            <span class="user-name">mazecode</span>
+                            <span class="user-level">Level 16</span>
+                        </div>
+                        <span class="xp-value">2100 XP</span>
+                    </div>
+
+                    <div class="leaderboard-row">
+                        <div class="icon-container"><img src="img/bronze medal.png" alt="Bronze" class="medal-icon">
+                        </div>
+                        <div class="user-meta">
+                            <span class="user-name">alla_oleksievna</span>
+                            <span class="user-level">Level 14</span>
+                        </div>
+                        <span class="xp-value">1800 XP</span>
+                    </div>
+
+                    <div class="leaderboard-row">
+                        <div class="icon-container"><span class="rank-number">#4</span></div>
+                        <div class="user-meta">
+                            <span class="user-name">umpaloompa</span>
+                            <span class="user-level">Level 12</span>
+                        </div>
+                        <span class="xp-value">1400 XP</span>
+                    </div>
+
+                    <div class="leaderboard-row">
+                        <div class="icon-container"><span class="rank-number">#5</span></div>
+                        <div class="user-meta">
+                            <span class="user-name">ladybug</span>
+                            <span class="user-level">Level 11</span>
+                        </div>
+                        <span class="xp-value">1200 XP</span>
+                    </div>
+
+                    <div class="leaderboard-row current-user">
+                        <div class="icon-container"><span class="rank-number">#6</span></div>
+                        <div class="user-meta">
+                            <span class="user-name">ilovepotato</span>
+                            <span class="user-level">Level 10</span>
+                        </div>
+                        <span class="xp-value">1001 XP</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sidebar-box achievements-card">
+                <h3 class="sidebar-title">Your Achievements</h3>
+
+                <div class="achievements-grid">
+
+                    <div class="achievement-item unlocked">
+                        <img src="img/Consistent Coder.png" alt="Consistent Coder" class="achievement-icon">
+                        <div class="achievement-tooltip">Log in and code for 7 days in a row</div>
+                    </div>
+
+                    <div class="achievement-item locked">
+                        <img src="img/Night Owl.png" alt="Night Owl" class="achievement-icon">
+                        <div class="achievement-tooltip">Complete a lesson between 12 AM and 4 AM</div>
+                    </div>
+
+                    <div class="achievement-item locked">
+                        <img src="img/Pixel Perfect.png" alt="Pixel Perfect" class="achievement-icon">
+                        <div class="achievement-tooltip">Complete the CSS grid module without errors</div>
+                    </div>
+
+                    <div class="achievement-item locked">
+                        <img src="img/Bug Hunter.png" alt="Bug Hunter" class="achievement-icon">
+                        <div class="achievement-tooltip">Find and fix 10 vulnerabilities in the practice lab</div>
+                    </div>
+
+                    <div class="achievement-item locked">
+                        <img src="img/Dragon Whisperer.png" alt="Dragon Whisperer" class="achievement-icon">
+                        <div class="achievement-tooltip">Grow your dragon to the maximum stage</div>
+                    </div>
+
+                    <div class="achievement-item locked">
+                        <img src="img/Deep learner.png" alt="Deep Learner" class="achievement-icon">
+                        <div class="achievement-tooltip">Finish the Advanced C++ Programming Course</div>
+                    </div>
+
+                </div>
+            </section>
+        </aside>
+    </main>
+
+
+</body>
+
+</html>

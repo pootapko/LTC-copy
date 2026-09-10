@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python IDE — LearnToCode</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #1c2128;
+      --surface: #21262d;
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #3ddc84;
+      --accent2: #22c55e;
+      --text: #e6edf3;
+      --text2: #8b949e;
+      --text3: #484f58;
+      --run-bg: #3ddc84;
+      --run-text: #0a1f12;
+      --line-num: #3d444d;
+      --output-ok: #3ddc84;
+      --output-err: #f85149;
+    }
+
+    .light {
+      --bg: #f0fdf4;
+      --bg2: #ffffff;
+      --bg3: #dcfce7;
+      --surface: #ffffff;
+      --border: rgba(0, 0, 0, 0.08);
+      --accent: #16a34a;
+      --accent2: #15803d;
+      --text: #0f2419;
+      --text2: #4b7a5c;
+      --text3: #86b898;
+      --run-bg: #16a34a;
+      --run-text: #ffffff;
+      --line-num: #a7d3b5;
+      --output-ok: #16a34a;
+      --output-err: #dc2626;
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    #app {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      height: 52px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 10px;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      margin-right: 4px;
+    }
+
+    .main_icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .divider {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    .spacer {
+      flex: 1;
+    }
+
+    .btn {
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      color: var(--text2);
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      background: var(--surface);
+      color: var(--text);
+      border-color: rgba(61, 220, 132, 0.35);
+    }
+
+    .btn-run {
+      background: var(--run-bg);
+      color: var(--run-text);
+      border-color: transparent;
+      font-weight: 600;
+      padding: 0 20px;
+    }
+
+    .btn-run:hover {
+      filter: brightness(1.1);
+      color: var(--run-text);
+      border-color: transparent;
+    }
+
+    .btn-run.running {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .lang-badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(61, 220, 132, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(61, 220, 132, 0.25);
+    }
+
+    .running-indicator {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text2);
+    }
+
+    .running-indicator.visible {
+      display: flex;
+    }
+
+    .spinner {
+      width: 13px;
+      height: 13px;
+      border: 2px solid transparent;
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .tt {
+      position: relative;
+    }
+
+    .tt .tip {
+      position: absolute;
+      bottom: calc(100% + 7px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 5px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      z-index: 200;
+    }
+
+    .tt:hover .tip {
+      opacity: 1;
+    }
+
+    .workspace {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .workspace.bottom {
+      flex-direction: column;
+    }
+
+    .editor-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+      border-right: 1px solid var(--border);
+    }
+
+    .workspace.bottom .editor-pane {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pane-header {
+      height: 36px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text2);
+      flex-shrink: 0;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .dot.ed {
+      background: var(--accent);
+    }
+
+    .dot.out {
+      background: var(--accent2);
+    }
+
+    .editor-wrapper {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .line-nums {
+      width: 48px;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      padding: 14px 0;
+      overflow: hidden;
+      flex-shrink: 0;
+      text-align: right;
+      color: var(--line-num);
+      font-size: 13px;
+      line-height: 1.65;
+      user-select: none;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+    }
+
+    .line-nums div {
+      padding: 0 10px 0 0;
+    }
+
+    #code-editor {
+      flex: 1;
+      background: var(--bg);
+      border: none;
+      outline: none;
+      padding: 14px 16px;
+      color: var(--text);
+      font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.65;
+      resize: none;
+      overflow-y: auto;
+      overflow-x: auto;
+      white-space: pre;
+      tab-size: 4;
+      caret-color: var(--accent);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    #code-editor::selection {
+      background: rgba(61, 220, 132, 0.2);
+    }
+
+    #code-editor::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    #code-editor::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #code-editor::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .resizer {
+      width: 5px;
+      cursor: col-resize;
+      background: transparent;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .resizer:hover,
+    .resizer.active {
+      background: var(--accent);
+      opacity: 0.45;
+    }
+
+    .output-pane {
+      width: 42%;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      flex-shrink: 0;
+    }
+
+    .workspace.bottom .output-pane {
+      width: 100%;
+      height: 38%;
+      min-width: unset;
+      min-height: 120px;
+    }
+
+    #output-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 18px;
+      background: var(--bg);
+      font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      transition: background 0.2s;
+    }
+
+    #output-body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #output-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #output-body::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 10px;
+      color: var(--text3);
+      font-style: italic;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .placeholder-icon {
+      font-size: 34px;
+      opacity: 0.4;
+    }
+
+    .out-normal {
+      display: block;
+      color: var(--text);
+    }
+
+    .out-err {
+      display: block;
+      color: var(--output-err);
+    }
+
+    .out-warn {
+      display: block;
+      color: #e3b341;
+    }
+
+    .out-meta {
+      display: block;
+      color: var(--text3);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 680px) {
+      .btn span.label {
+        display: none;
+      }
+
+      .btn {
+        padding: 0 10px;
+      }
+
+      .btn-run .label {
+        display: inline;
+      }
+
+      .lang-badge {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+    <div class="topbar">
+      <div class="logo">
+        <div class="logo-icon">⚡</div>
+        learntocode
+      </div>
+      <div class="divider"></div>
+
+      <button class="btn btn-run" id="run-btn" onclick="runCode()">
+        <span>▶</span> <span class="label">Run</span>
+      </button>
+
+      <div class="running-indicator" id="running-ind">
+        <div class="spinner"></div>
+        <span>Running...</span>
+      </div>
+
+      <button class="btn" onclick="clearOutput()">
+        <span>🗑</span> <span class="label">Clear</span>
+      </button>
+
+      <div class="spacer"></div>
+
+      <span class="lang-badge">Python 3</span>
+      <div class="divider"></div>
+
+      <div class="tt">
+        <button class="btn" id="layout-btn" onclick="toggleLayout()">
+          <span id="layout-icon">⬛</span>
+        </button>
+        <div class="tip" id="layout-tip">Output at bottom</div>
+      </div>
+
+      <div class="tt">
+        <button class="btn" onclick="toggleTheme()">
+          <span id="theme-icon">☀️</span>
+        </button>
+        <div class="tip">Toggle theme</div>
+      </div>
+
+      <div class="tt">
+        <button class="btn" onclick="window.location.href='/courses'">
+          <span>🏠</span> <span class="label">Home</span>
+        </button>
+        <div class="tip">To home page</div>
+      </div>
+    </div>
+
+    <div class="workspace" id="workspace">
+
+      <div class="editor-pane" id="editor-pane">
+        <div class="pane-header">
+          <div class="dot ed"></div>
+          main.py
+        </div>
+        <div class="editor-wrapper">
+          <div class="line-nums" id="line-nums"></div>
+          <textarea id="code-editor" spellcheck="false" autocomplete="off" autocorrect="off"
+            autocapitalize="off"></textarea>
+        </div>
+      </div>
+
+      <div class="resizer" id="resizer"></div>
+
+      <div class="output-pane" id="output-pane">
+        <div class="pane-header">
+          <div class="dot out"></div>
+          Output
+          <span id="exec-time" style="margin-left:auto; font-size:11px; color:var(--text3);"></span>
+        </div>
+        <div id="output-body">
+          <div class="placeholder">
+            <div class="placeholder-icon">⚡</div>
+            <span>Press <strong>Run</strong> or <strong>Ctrl+Enter</strong> to run code</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+
+  <script>
+    const DEFAULT_CODE = `
+
+print("Hello, world!")
+
+`;
+
+    const editor = document.getElementById('code-editor');
+    const lineNums = document.getElementById('line-nums');
+    const outputBody = document.getElementById('output-body');
+    const runBtn = document.getElementById('run-btn');
+    const runningInd = document.getElementById('running-ind');
+    const workspace = document.getElementById('workspace');
+    const resizer = document.getElementById('resizer');
+    const editorPane = document.getElementById('editor-pane');
+    const outputPane = document.getElementById('output-pane');
+
+    let isLight = false;
+    let isBottomLayout = false;
+    let isRunning = false;
+
+    editor.value = DEFAULT_CODE;
+    updateLineNums();
+
+    editor.addEventListener('input', updateLineNums);
+    editor.addEventListener('scroll', () => { lineNums.scrollTop = editor.scrollTop; });
+
+    function updateLineNums() {
+      const lines = editor.value.split('\n');
+      lineNums.innerHTML = lines.map((_, i) => `<div>${i + 1}</div>`).join('');
+    }
+
+    editor.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const s = editor.selectionStart;
+        editor.value = editor.value.slice(0, s) + '    ' + editor.value.slice(editor.selectionEnd);
+        editor.selectionStart = editor.selectionEnd = s + 4;
+        updateLineNums();
+      }
+      if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); runCode(); }
+    });
+
+    function runCode() {
+      if (isRunning) return;
+      isRunning = true;
+      runBtn.classList.add('running');
+      runBtn.innerHTML = '<span>⏸</span> <span class="label">Run</span>';
+      runningInd.classList.add('visible');
+
+      outputBody.innerHTML = '';
+      document.getElementById('exec-time').textContent = '';
+
+      const startTime = performance.now();
+      let outputHtml = '';
+
+      function flush() {
+        outputBody.innerHTML = outputHtml;
+        outputBody.scrollTop = outputBody.scrollHeight;
+      }
+
+      Sk.configure({
+        output: (text) => {
+          outputHtml += `<span class="out-normal">${escHtml(text.replace(/\n$/, ''))}\n</span>`;
+          flush();
+        },
+        read: (x) => {
+          if (Sk.builtinFiles && Sk.builtinFiles.files[x]) return Sk.builtinFiles.files[x];
+          throw new Error("File not found: '" + x + "'");
+        },
+        inputfun: () => Promise.resolve(''),
+        __future__: Sk.python3,
+        execLimit: 6000,
+      });
+
+      Sk.misceval.asyncToPromise(() =>
+        Sk.importMainWithBody('<stdin>', false, editor.value, true)
+      ).then(() => {
+        const t = ((performance.now() - startTime) / 1000).toFixed(3);
+        if (!outputHtml) {
+          outputBody.innerHTML = `<span class="out-meta">// Program executed without output</span>`;
+        } else {
+          outputBody.innerHTML = outputHtml + `<span class="out-meta">// Executed in ${t}s</span>`;
+        }
+        document.getElementById('exec-time').textContent = t + 's';
+        outputBody.scrollTop = outputBody.scrollHeight;
+      }).catch((err) => {
+        const t = ((performance.now() - startTime) / 1000).toFixed(3);
+        const msg = err.toString();
+        outputBody.innerHTML = (outputHtml || '') + `<span class="out-err">❌ ${escHtml(msg)}</span>`;
+        document.getElementById('exec-time').textContent = 'error';
+        outputBody.scrollTop = outputBody.scrollHeight;
+      }).finally(() => {
+        isRunning = false;
+        runBtn.classList.remove('running');
+        runBtn.innerHTML = '<span>▶</span> <span class="label">Run</span>';
+        runningInd.classList.remove('visible');
+      });
+    }
+
+    function clearOutput() {
+      outputBody.innerHTML = `<div class="placeholder"><div class="placeholder-icon">⚡</div><span>Press <strong>Run</strong> or <strong>Ctrl+Enter</strong> to run code</span></div>`;
+      document.getElementById('exec-time').textContent = '';
+    }
+
+    function toggleTheme() {
+      isLight = !isLight;
+      document.getElementById('app').classList.toggle('light', isLight);
+      document.getElementById('theme-icon').textContent = isLight ? '🌙' : '☀️';
+    }
+
+    function toggleLayout() {
+      isBottomLayout = !isBottomLayout;
+      workspace.classList.toggle('bottom', isBottomLayout);
+      document.getElementById('layout-icon').textContent = isBottomLayout ? '⬜' : '⬛';
+      document.getElementById('layout-tip').textContent = isBottomLayout ? 'Output on right' : 'Output at bottom';
+      resizer.style.display = isBottomLayout ? 'none' : '';
+      if (isBottomLayout) {
+        editorPane.style.width = '';
+        outputPane.style.width = '';
+      }
+    }
+
+    let resizing = false;
+    resizer.addEventListener('mousedown', (e) => {
+      resizing = true;
+      resizer.classList.add('active');
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!resizing) return;
+      const rect = workspace.getBoundingClientRect();
+      const pct = Math.min(Math.max((e.clientX - rect.left) / rect.width * 100, 30), 72);
+      editorPane.style.flex = 'none';
+      editorPane.style.width = pct + '%';
+      outputPane.style.width = (100 - pct - 0.4) + '%';
+    });
+    document.addEventListener('mouseup', () => {
+      if (resizing) { resizing = false; resizer.classList.remove('active'); }
+    });
+
+    function escHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+  </script>
+</body>
+
+</html>
